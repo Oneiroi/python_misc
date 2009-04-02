@@ -62,7 +62,7 @@ def main():
     
     if json == 1:
         print f.read()
-    elif verbos == 1:
+    elif verbose == 1:
         print "Tweet sent"
      
 
