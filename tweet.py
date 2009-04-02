@@ -2,13 +2,13 @@
 
 # Created by David Busby on 02/02/2009.
 # http://saiweb.co.uk
-# Uses httplib to post a tweet
+# Uses urllib to post a tweet
 # http://creativecommons.org/licenses/by-sa/2.0/uk/ CC BY-SA
 
 import sys, getopt, urllib
 
 def usage():
-    print "Usage: ",sys.argv[0]," [-u username][-p password][-t your tweet hhere][-j][-v]"
+    print "Usage: ",sys.argv[0]," [-u username][-p password][-t your tweet here][-j][-v]"
     print "-u Twitter username"
     print "-p Twitter password"
     print "-t Tweet"
