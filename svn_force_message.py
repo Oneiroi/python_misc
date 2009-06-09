@@ -14,7 +14,7 @@ def main(repo,txn):
     str = os.popen(cmd, 'r').readline().rstrip('\n')
     
     if(len(str) <= 10):
-        sys.stderr.write('Log messages is too short, your commit has been refused\n')
+        sys.stderr.write('Log message is too short, your commit has been refused\n')
         sys.exit(1)
     else:
         sys.exit(0)
