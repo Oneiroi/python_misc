@@ -102,7 +102,6 @@ def main():
     pwd = ""
     rev = 0
     repo = ""
-     
     
     for o, a in opts:
         if o in ("-h", "--help"):
@@ -139,7 +138,6 @@ def main():
         update = "%s..." % (update[0:137])
     
     upd.update(update)
-    
     
 if __name__ == "__main__":
     main()
