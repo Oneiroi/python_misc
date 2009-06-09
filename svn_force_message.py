@@ -3,7 +3,7 @@
     Author: David Busby (http://saiweb.co.uk)
     Program: force message
     Description: Python subversion call back forces committer to specify a log message longer thank 10 chars
-    Copyright: David Busby 2009. All rights reserved.
+    Copyright: David Busby, Psycle Interactive Ltd 2009 All rights reserved.
     License: http://creativecommons.org/licenses/by-sa/2.0/uk/
 """
 
