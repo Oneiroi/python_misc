@@ -6,7 +6,7 @@
     License: http://creativecommons.org/licenses/by-sa/2.0/uk/
 """
 
-import urllib2, base64, sys, os, syslog, getopt
+import urllib2, base64, sys, os, syslog, getopt, re
 from urllib import urlencode
 
 class updater:
@@ -42,7 +42,23 @@ class updater:
     def _get_changed(self):
         cmd = 'svnlook changed -r %s %s' % (self.rev,self.repo)
         return self._exec(cmd)
-    
+    def _get_project(self):
+        """ matches first valid folder, will return folder name if not branches or 2nd foldername if branches """
+        str = self._get_changed()
+        m = re.match('.*?([^/]+)',str)
+        
+        if m != None:
+            """ we have matches """
+            if m.group(1) == 'branches':
+                m = re.match('.*?branches/([^/]+)',str)
+                if m != None:
+                    """ we have matches """
+                    return m.group(1)
+                else:
+                    return ''
+            else:
+                return m.group(1)
+        
     def log(self,str):
         str = '%s: %s' % (self.tag, str)
         syslog.syslog(str)
@@ -136,7 +152,7 @@ def main():
         
     upd = updater(usr,pwd,rev,repo)
     
-    update = "[SVN] Commit r%s by %s: %s" % (rev, upd._get_author(), upd._get_log())
+    update = "[SVN] Commit (%s) r%s by %s: %s" % (upd._get_project(), rev, upd._get_author(), upd._get_log())
     
     if(len(update) > 140):
         update = "%s..." % (update[0:137])
