@@ -22,7 +22,10 @@ class updater:
     
     def _exec(self, cmd):
         prg = os.popen(cmd,"r")
-        return prg.readline()
+        str = ''
+        for line in prg.readlines():
+            str += line    
+        return str
     
     def _get_author(self):
         cmd = 'svnlook author -r %s %s' % (self.rev,self.repo)
