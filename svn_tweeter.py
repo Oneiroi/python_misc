@@ -45,11 +45,11 @@ class updater:
     def _get_project(self):
         """ matches first valid folder, will return folder name if not branches or 2nd foldername if branches """
         str = self._get_changed()
-        m = re.match('.*?([^/]+)',str)
+        m = re.match('.*? ([^/]+)',str)
         
         if m != None:
             """ we have matches """
-            if m.group(1) == 'branches':
+            if m.group(1).lstrip(' ') == 'branches':
                 m = re.match('.*?branches/([^/]+)',str)
                 if m != None:
                     """ we have matches """
@@ -57,7 +57,7 @@ class updater:
                 else:
                     return ''
             else:
-                return m.group(1)
+                return m.group(1).lstrip(' ')
         
     def log(self,str):
         str = '%s: %s' % (self.tag, str)
