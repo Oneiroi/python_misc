@@ -8,16 +8,27 @@
 """
 
 import sys, os, string
+from fnmatch import fnmatch
 
 def main(repo,txn):
+    #enforce a comment
     cmd = '/usr/bin/svnlook log -t "%s" "%s"' % (txn,repo)
     str = os.popen(cmd, 'r').readline().rstrip('\n')
     
     if(len(str) <= 10):
         sys.stderr.write('Log message is too short, your commit has been refused\n')
         sys.exit(1)
-    else:
-        sys.exit(0)
+    #ban certain extentions
+    banned = ['*.tgz','*.tar*','*.zip','*.gz','*.bz*','*.pyc','*.so*','*.o','*.swp','*.exe','*.bak','*.old','*.dll','*.rar','*.obj','*.out','thumbs.db']
+    cmd = '/usr/bin/svnlook changed -t "%s" "%s"' % (txn,repo)
+    str = os.popen(cmd, 'r').readline().rstrip('\n')
+    for line in str.split('\n'):
+	for ban in banned:
+		if fnmatch(line.lower(),ban):
+			sys.stderr.write('Rejected commit as it contains a banned file extension %s\n'%ban)
+			sys.exit(1)
+	
+    sys.exit(0)
     
 if __name__ == '__main__':
     
